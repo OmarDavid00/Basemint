@@ -20,7 +20,7 @@ export default function Home() {
 
   const handleMint = async () => {
     try {
-      const result = await writeContract({
+      writeContract({
         address: CONTRACT_ADDRESS,
         abi: [
           {
@@ -34,15 +34,15 @@ export default function Home() {
         functionName: 'mint',
         value: parseEther(MINT_PRICE),
       })
-
-      // 不阻塞 UI，异步追踪
-      if (result && address) {
-        setTxHash(result)
-        trackTransaction('app-001', 'Base Free Mint NFT', address, result)
-      }
     } catch (err) {
       console.error('Mint error:', err)
     }
+  }
+
+  // 当交易哈希可用时追踪
+  if (hash && address && !txHash) {
+    setTxHash(hash)
+    trackTransaction('app-001', 'Base Free Mint NFT', address, hash)
   }
 
   return (
