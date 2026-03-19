@@ -2,7 +2,7 @@
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { trackTransaction } from '../utils/track'
 
 const CONTRACT_ADDRESS = '0x0cc6283d724f448244824b2a1b5912813ab54388'
@@ -45,10 +45,12 @@ export default function Home() {
   }
 
   // 当交易哈希可用时追踪
-  if (hash && address && !txHash) {
-    setTxHash(hash)
-    trackTransaction('app-001', 'Base Free Mint NFT', address, hash)
-  }
+  useEffect(() => {
+    if (hash && address && !txHash) {
+      setTxHash(hash)
+      trackTransaction('app-001', 'Base Free Mint NFT', address, hash)
+    }
+  }, [hash, address, txHash])
 
   return (
     <main className="container">
