@@ -140,3 +140,38 @@ footer {
   font-size: 0.9rem;
   opacity: 0.9;
 }
+
+.uri-input {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.uri-input label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.uri-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.uri-field:focus {
+  outline: none;
+  border-color: #0052ff;
+  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.1);
+}
+
+.hint {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}

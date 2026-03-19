@@ -2,17 +2,17 @@
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { parseEther } from 'viem'
 import { useState } from 'react'
 import { trackTransaction } from '../utils/track'
 
 const CONTRACT_ADDRESS = '0x0cc6283d724f448244824b2a1b5912813ab54388'
-const MINT_PRICE = '0.00001' // 0.00001 ETH - 极低价格
+const DEFAULT_TOKEN_URI = 'ipfs://QmYourDefaultMetadataHash' // 默认的 NFT metadata URI
 
 export default function Home() {
   const { address, isConnected } = useAccount()
   const { writeContract, data: hash, isPending, error } = useWriteContract()
   const [txHash, setTxHash] = useState<string>('')
+  const [tokenUri, setTokenUri] = useState<string>(DEFAULT_TOKEN_URI)
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -26,13 +26,18 @@ export default function Home() {
           {
             name: 'mint',
             type: 'function',
-            stateMutability: 'payable',
-            inputs: [],
+            stateMutability: 'nonpayable',
+            inputs: [
+              {
+                name: '_uri',
+                type: 'string',
+              },
+            ],
             outputs: [],
           },
         ],
         functionName: 'mint',
-        value: parseEther(MINT_PRICE),
+        args: [tokenUri],
       })
     } catch (err) {
       console.error('Mint error:', err)
@@ -49,7 +54,7 @@ export default function Home() {
     <main className="container">
       <div className="card">
         <h1>🎨 Base Free Mint NFT</h1>
-        <p className="subtitle">Mint your NFT on Base Network</p>
+        <p className="subtitle">Mint your NFT on Base Network - FREE!</p>
 
         <div className="connect-section">
           <ConnectButton />
@@ -63,12 +68,27 @@ export default function Home() {
                 {address?.slice(-4)}
               </p>
               <p>
-                <strong>Price:</strong> {MINT_PRICE} ETH
+                <strong>Price:</strong> FREE (只需 Gas 费)
               </p>
               <p>
                 <strong>Contract:</strong> {CONTRACT_ADDRESS.slice(0, 6)}...
                 {CONTRACT_ADDRESS.slice(-4)}
               </p>
+            </div>
+
+            <div className="uri-input">
+              <label htmlFor="tokenUri">
+                <strong>Token URI (可选):</strong>
+              </label>
+              <input
+                id="tokenUri"
+                type="text"
+                value={tokenUri}
+                onChange={(e) => setTokenUri(e.target.value)}
+                placeholder="ipfs://..."
+                className="uri-field"
+              />
+              <p className="hint">输入你的 NFT metadata URI，或使用默认值</p>
             </div>
 
             <button
@@ -80,7 +100,7 @@ export default function Home() {
                 ? 'Confirming...'
                 : isConfirming
                 ? 'Minting...'
-                : `Mint NFT - ${MINT_PRICE} ETH`}
+                : 'Mint NFT - FREE'}
             </button>
 
             {error && (
