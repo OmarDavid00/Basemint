@@ -11,7 +11,7 @@ const DEFAULT_TOKEN_URI = 'ipfs://QmYourDefaultMetadataHash' // 默认的 NFT me
 export default function Home() {
   const { address, isConnected } = useAccount()
   const { writeContract, data: hash, isPending, error } = useWriteContract()
-  const [txHash, setTxHash] = useState<string>('')
+  const [trackedHashes, setTrackedHashes] = useState<string[]>([])
   const [tokenUri, setTokenUri] = useState<string>(DEFAULT_TOKEN_URI)
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
@@ -44,13 +44,20 @@ export default function Home() {
     }
   }
 
-  // 当交易哈希可用时追踪
+  // 当交易成功确认后追踪，支持多笔交易
   useEffect(() => {
-    if (hash && address && !txHash) {
-      setTxHash(hash)
-      trackTransaction('app-001', 'Base Free Mint NFT', address, hash)
-    }
-  }, [hash, address, txHash])
+    if (!isSuccess || !hash || !address) return
+    if (trackedHashes.includes(hash)) return
+
+    trackTransaction(
+      '69ba5ee0e3869312452b6bdf',
+      'Base Free Mint NFT',
+      address,
+      hash
+    ).catch(console.error)
+
+    setTrackedHashes((prev) => [...prev, hash])
+  }, [isSuccess, hash, address, trackedHashes])
 
   return (
     <main className="container">
@@ -114,15 +121,15 @@ export default function Home() {
             {isSuccess && (
               <div className="success">
                 <p>✅ Mint Successful!</p>
-                {txHash && (
+                {hash && (
                   <p className="tx-hash">
                     <strong>TX Hash:</strong>{' '}
                     <a
-                      href={`https://basescan.org/tx/${txHash}`}
+                      href={`https://basescan.org/tx/${hash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {txHash.slice(0, 10)}...{txHash.slice(-8)}
+                      {hash.slice(0, 10)}...{hash.slice(-8)}
                     </a>
                   </p>
                 )}
@@ -139,7 +146,7 @@ export default function Home() {
       </div>
 
       <footer>
-        <p>App ID: app-001 | Build Code: bc_qyd3sdtd</p>
+        <p>App ID: 69ba5ee0e3869312452b6bdf | Build Code: bc_qyd3sdtd</p>
       </footer>
     </main>
   )

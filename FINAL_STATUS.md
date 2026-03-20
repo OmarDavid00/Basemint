@@ -47,7 +47,7 @@
 
 | 配置项 | 值 |
 |--------|-----|
-| App ID | app-001 |
+| App ID | 69ba5ee0e3869312452b6bdf |
 | App Name | Base Free Mint NFT |
 | Build Code | bc_qyd3sdtd |
 | Base App ID | 69ba5ee0e3869312452b6bdf |

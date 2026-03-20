@@ -36,7 +36,7 @@ cd base-nft-miniapp && npm run dev
 
 ## 📝 项目配置信息
 
-- **App ID**: app-001
+- **App ID**: 69ba5ee0e3869312452b6bdf
 - **App Name**: Base Free Mint NFT
 - **Build Code**: bc_qyd3sdtd
 - **Encoded String**: 0x62635f71796433736474640b0080218021802180218021802180218021

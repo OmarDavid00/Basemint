@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import { Providers } from './providers'
 import './globals.css'
 
-export const metadata: Metadata = {
-  title: 'Base Free Mint NFT',
-  description: 'Mint your free NFT on Base',
+
+export const metadata = {
+  title: 'Base NFT Mini App',
+  description: '...',
   other: {
     'base:app_id': '69ba5ee0e3869312452b6bdf',
   },

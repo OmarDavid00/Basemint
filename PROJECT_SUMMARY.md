@@ -59,7 +59,7 @@ base-nft-miniapp/
 
 | 配置项 | 值 |
 |--------|-----|
-| App ID | app-001 |
+| App ID | 69ba5ee0e3869312452b6bdf |
 | App Name | Base Free Mint NFT |
 | Build Code | bc_qyd3sdtd |
 | Contract Address | 0x0cc6283d724f448244824b2a1b5912813ab54388 |
