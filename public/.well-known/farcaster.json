@@ -4,14 +4,11 @@
     "payload": "temp",
     "signature": "temp"
   },
-  "frame": {
+  "miniapp": {
     "version": "1",
     "name": "Base Free Mint NFT",
     "iconUrl": "https://base-nft-miniapp-six.vercel.app/icon.png",
     "homeUrl": "https://base-nft-miniapp-six.vercel.app",
-    "imageUrl": "https://base-nft-miniapp-six.vercel.app/og.png",
-    "buttonTitle": "Mint NFT",
-    "splashImageUrl": "https://base-nft-miniapp-six.vercel.app/og.png",
-    "splashBackgroundColor": "#000000"
+    "imageUrl": "https://base-nft-miniapp-six.vercel.app/preview.png"
   }
 }
